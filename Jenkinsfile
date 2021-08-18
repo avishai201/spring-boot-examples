@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('Maven Compile') {
+      steps {
+        sh 'mvn build'
+      }
+    }
+
   }
 }

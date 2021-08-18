@@ -19,5 +19,12 @@ mvn compile'''
       }
     }
 
+    stage('Maven Test') {
+      steps {
+        sh '''cd spring-boot-package-war
+mvn test'''
+      }
+    }
+
   }
 }

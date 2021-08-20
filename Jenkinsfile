@@ -33,5 +33,11 @@ mvn clean package'''
       }
     }
 
+    stage('Slack Notification') {
+      steps {
+        slackSend(message: 'Build Success - Module2', token: 'WBoniVFZfbAefgOzyMSEscli', channel: 'int-project', notifyCommitters: true)
+      }
+    }
+
   }
 }

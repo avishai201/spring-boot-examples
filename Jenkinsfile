@@ -13,9 +13,26 @@ pipeline {
     }
 
     stage('Maven Compile') {
-      steps {
-        sh '''cd spring-boot-package-war
+      parallel {
+        stage('Maven Compile') {
+          steps {
+            sh '''cd spring-boot-package-war
 mvn compile'''
+          }
+        }
+
+        stage('Echo Parameters') {
+          steps {
+            sh '''echo BUILD_ID = $BUILD_ID
+echo BUILD_TAG = $BUILD_NUMBER
+echo BUILD_TAG = $BUILD_TAG
+echo BUILD_URL = $BUILD_URL
+echo EXECUTOR_NUMBER = $EXECUTOR_NUMBER
+echo JENKINS_URL = $JENKINS_URL
+'''
+          }
+        }
+
       }
     }
 

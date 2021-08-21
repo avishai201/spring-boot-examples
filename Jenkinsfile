@@ -40,7 +40,8 @@ echo JENKINS_URL = $JENKINS_URL
       steps {
         sh '''cd spring-boot-package-war
 mvn test'''
-        sh '''mvn versions:set versions:commit -DnewVersion= $BUILD_ID
+        sh '''cd spring-boot-package-war
+mvn versions:set versions:commit -DnewVersion= $BUILD_ID
 '''
       }
     }

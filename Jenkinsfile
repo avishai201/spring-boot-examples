@@ -43,14 +43,6 @@ mvn test'''
       }
     }
 
-    stage('Increment the pom') {
-      steps {
-        sh '''cd spring-boot-package-war
-mvn versions:set -DnewVersion= 12
-'''
-      }
-    }
-
     stage('Maven Package') {
       steps {
         sh '''cd spring-boot-package-war
@@ -58,9 +50,16 @@ mvn clean package'''
       }
     }
 
+    stage('Increment the pom') {
+      steps {
+        sh '''cd spring-boot-package-war
+mvn versions:set -DnewVersion= 12'''
+      }
+    }
+
     stage('Slack Notification') {
       steps {
-        slackSend(channel: 'int-project', message: 'Build Success - Module2', token: 'WBoniVFZfbAefgOzyMSEscli', notifyCommitters: true)
+        slackSend(channel: 'int-project', message: 'Build Success - Module2', notifyCommitters: true, token: 'WBoniVFZfbAefgOzyMSEscli')
       }
     }
 

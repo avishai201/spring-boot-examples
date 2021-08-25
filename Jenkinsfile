@@ -46,7 +46,8 @@ mvn test'''
     stage('Increment the pom') {
       steps {
         sh '''cd spring-boot-package-war
-mvn versions:set versions:commit -DnewVersion= ${env.BUILD_ID}'''
+mvn versions:set -DnewVersion= ${BUILD_ID}
+'''
       }
     }
 

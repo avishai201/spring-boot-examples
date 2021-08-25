@@ -40,9 +40,6 @@ echo JENKINS_URL = $JENKINS_URL
       steps {
         sh '''cd spring-boot-package-war
 mvn test'''
-        sh '''cd spring-boot-package-war
-mvn versions:set versions:commit -DnewVersion= $BUILD_ID
-'''
       }
     }
 
@@ -56,6 +53,13 @@ mvn clean package'''
     stage('Slack Notification') {
       steps {
         slackSend(message: 'Build Success - Module2', token: 'WBoniVFZfbAefgOzyMSEscli', channel: 'int-project', notifyCommitters: true)
+      }
+    }
+
+    stage('Increment the pom') {
+      steps {
+        sh '''cd spring-boot-package-war
+mvn versions:set versions:commit -DnewVersion= $BUILD_ID'''
       }
     }
 

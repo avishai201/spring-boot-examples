@@ -53,7 +53,7 @@ mvn clean package'''
     stage('Increment the pom') {
       steps {
         sh '''cd spring-boot-package-war
-mvn versions:set -DnewVersion= ${Build_ID}'''
+mvn versions:set -DnewVersion= $Build_ID'''
       }
     }
 

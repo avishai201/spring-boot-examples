@@ -59,7 +59,7 @@ mvn versions:set -DnewVersion= $Build_ID'''
 
     stage('Slack Notification') {
       steps {
-        slackSend(channel: 'int-project', message: 'Build Success - Module2', notifyCommitters: true, token: 'WBoniVFZfbAefgOzyMSEscli')
+        slackSend(channel: 'int-project', message: ' "${env.JOB_NAME} #${env.BUILD_NUMBER} - Started By Avishai (${env.BUILD_URL})"', notifyCommitters: true, token: 'WBoniVFZfbAefgOzyMSEscli')
       }
     }
 

@@ -43,30 +43,24 @@ mvn test'''
       }
     }
 
-    stage('Maven Package') {
+    stage(' Increment the pom') {
       steps {
         sh '''cd spring-boot-package-war
-mvn clean package'''
+mvn versions:set -DnewVersion= 12'''
       }
     }
 
-    stage('Increment the pom') {
+    stage('Maven Package') {
       steps {
         sh '''cd spring-boot-package-war
-mvn versions:set -DnewVersion= $Build_ID
-
-println("Getting commit id and latest Version")
-_lastCommit = sh script: "git log | head -1 | awk \'{print \\$2}\' | cut -c1-6", returnStdout: true
-_latestVersion = sh script: "git branch -r | cut -d \'/\' -f2 | grep 0. | sort -r | head -1", returnStdout: true
-println("BuildID Version seen is ${BUILD_ID}")
-
+mvn clean package
 '''
       }
     }
 
     stage('Slack Notification') {
       steps {
-        slackSend(channel: 'int-project', message: ' "${env.JOB_NAME} #${env.BUILD_NUMBER} - Started By Avishai (${env.BUILD_URL})"', notifyCommitters: true, token: 'WBoniVFZfbAefgOzyMSEscli')
+        slackSend(channel: 'int-project', message: 'Build Success - Module2', notifyCommitters: true, token: 'WBoniVFZfbAefgOzyMSEscli')
       }
     }
 

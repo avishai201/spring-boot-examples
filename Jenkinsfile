@@ -46,14 +46,21 @@ mvn test'''
     stage('Maven Package') {
       steps {
         sh '''cd spring-boot-package-war
-mvn -Drevision=2.0.0-SNAPSHOT clean package'''
+mvn clean package'''
       }
     }
 
     stage('Increment the pom') {
       steps {
         sh '''cd spring-boot-package-war
-mvn versions:set -DnewVersion= $Build_ID'''
+mvn versions:set -DnewVersion= $Build_ID
+
+println("Getting commit id and latest Version")
+_lastCommit = sh script: "git log | head -1 | awk \'{print \\$2}\' | cut -c1-6", returnStdout: true
+_latestVersion = sh script: "git branch -r | cut -d \'/\' -f2 | grep 0. | sort -r | head -1", returnStdout: true
+println("BuildID Version seen is ${BUILD_ID}")
+
+'''
       }
     }
 

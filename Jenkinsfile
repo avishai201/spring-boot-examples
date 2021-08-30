@@ -6,10 +6,14 @@ pipeline {
 
   }
   stages {
-    stage('Check Out Code') {
+        stage('Clean before clone') {
       steps {
-        // Clean before clone
         cleanWs()
+     }
+  }     
+        
+   stage('Check Out Code') {
+      steps {
         git(url: 'https://github.com/avishai201/spring-boot-examples.git', branch: 'Avishai_sol', changelog: true)
       }
     }

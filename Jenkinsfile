@@ -6,13 +6,13 @@ pipeline {
 
   }
   stages {
-        stage('Clean before clone') {
+    stage('Clean before clone') {
       steps {
         cleanWs()
-     }
-  }     
-        
-   stage('Check Out Code') {
+      }
+    }
+
+    stage('Check Out Code') {
       steps {
         git(url: 'https://github.com/avishai201/spring-boot-examples.git', branch: 'Avishai_sol', changelog: true)
       }
@@ -52,7 +52,7 @@ mvn test'''
     stage(' Increment the pom') {
       steps {
         sh '''cd spring-boot-package-war
-mvn build-helper:parse-version versions:set -DnewVersion=0.0.1.$BUILD_ID-SNAPSHOT versions:commit'''
+mvn build-helper:parse-version versions:set -DnewVersion=0.0.2.$BUILD_ID-SNAPSHOT versions:commit'''
       }
     }
 
